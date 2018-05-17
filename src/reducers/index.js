@@ -2,8 +2,8 @@ import { combineReducers } from 'redux'
 import {
   LOAD_POSTS,
   APPEND_NEW_POST,
-  TOGGLE_POST_FORM_MODAL,
-  OPEN_EDIT_FORM_MODAL,
+  TOGGLE_NEW_POST_MODAL,
+  TOGGLE_EDIT_POST_MODAL,
   LOAD_CATEGORIES
 } from '../actions'
 
@@ -29,17 +29,19 @@ function categories(categories = [], action) {
   }
 }
 
-function modals(modalsStatus = { isOpenPostForm: false, isNewPost: false }, action) {
+function modals(modalsStatus = { isOpenPostForm: false, postInEdition: {} }, action) {
   switch (action.type) {
-    case TOGGLE_POST_FORM_MODAL:
+    case TOGGLE_NEW_POST_MODAL:
       return {
         isOpenPostForm: action.isOpen,
-        isNewPost: action.isNewPost
+        postInEdition: {},
+        isNewPost: action.isOpen
       };
-    case OPEN_EDIT_FORM_MODAL:
+    case TOGGLE_EDIT_POST_MODAL:
       return {
-        isOpenPostForm: action.isOpen,
-        postInEdition: action.post
+        isOpenPostForm: true,
+        postInEdition: action.isOpen ? action.post : {},
+        isNewPost: false
       }
     default:
       return modalsStatus;

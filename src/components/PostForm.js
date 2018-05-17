@@ -18,12 +18,22 @@ class PostForm extends Component {
     });
   }
 
+  updatePost = ( e ) => {
+    e.preventDefault();
+    const post = serializeForm(e.target, {hash: true});
+    API.updatePost(post).then(response => {
+      // TODO: if (response.error)
+      // this.props.dispatch(Actions.updatePost( post ));
+      // TODO: give user feedback ("succes!")
+    });
+  }
+
   render() {
     const isNewPost = this.props.modals.isNewPost;
     const post = this.props.modals.postInEdition;
 
     return (<div className="post-form">
-      <form onSubmit={this.saveNewPost}>
+      <form onSubmit={isNewPost ? this.saveNewPost : this.updatePost}>
         Title:  <input type="text" name="title" value={ isNewPost ? "" : post.title } required/><br/>
         Author: <input type="text" name="author" value={ isNewPost ? "" : post.author } required/><br/>
         Category: <select name="category" required>{
@@ -31,7 +41,7 @@ class PostForm extends Component {
             (<option key={c.name} disabled={c.name === 'all'} selected={!isNewPost && c.name === post.category}>{c.name}</option>)
           )}</select><br/><br/>
         Body:   <textarea name="body" value={ isNewPost ? "" : post.body } required/><br/>
-        <button type="submit">save post</button>
+        <button type="submit">{isNewPost ? "save post" : "update"}</button>
       </form>
       <div id="form-feedback"></div>
     </div>)

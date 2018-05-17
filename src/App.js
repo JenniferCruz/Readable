@@ -13,7 +13,7 @@ class App extends Component {
 
   componentDidMount() {
     API.getPosts().then(
-       posts =>
+       posts => 
          this.props.dispatch(Actions.loadPosts(posts))
        );
     API.getCategories().then(
@@ -23,11 +23,12 @@ class App extends Component {
 
   }
 
-  togglePostFormModal(currentStatus, isNewPost, post) {
-    isNewPost ?
-      this.props.dispatch(Actions.togglePostFormModal(!currentStatus, isNewPost))
-      :
-      this.props.dispatch(Actions.togglePostFormModal(currentStatus, false, post));
+  toggleNewPostModal(currentStatus) {
+      this.props.dispatch(Actions.toggleNewPostModal(currentStatus))
+  }
+
+  toggleEditPostModal(currentStatus, post) {
+    this.props.dispatch(Actions.toggleEditPostModal(currentStatus, post));
   }
 
   render() {
@@ -41,7 +42,7 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="add-button"
-              onClick={() => this.togglePostFormModal(isOpenPostForm, true)}>
+              onClick={() => this.toggleNewPostModal(isOpenPostForm)}>
               Add new post
           </h1>
         </header>
@@ -54,7 +55,7 @@ class App extends Component {
             <ul>{
                 posts.map(p =>
                   (<li key={p.id}>{
-                    <PostSnippet p={p} loadEditForm={this.togglePostFormModal.bind(this)}/>
+                    <PostSnippet p={p} loadEditForm={this.toggleEditPostModal.bind(this)}/>
                   }</li>)
                 )
             }</ul>
@@ -67,7 +68,7 @@ class App extends Component {
           contentLabel='Modal'
           shouldCloseOnOverlayClick={false}
         >
-          <h2 onClick={() => this.togglePostFormModal(isOpenPostForm, false)}>X</h2>
+          <h2 onClick={() => this.toggleNewPostModal(isOpenPostForm, false)}>X</h2>
           <PostForm/>
         </Modal>
       </div>

@@ -18,14 +18,28 @@ const headersPost = (data) => {
   }
 }
 
+const headersPut = (data) => {
+  return {
+    body: JSON.stringify(data),
+    headers: {
+        'content-type': 'application/json',
+        'Authorization': ':-)'
+    },
+    method: 'PUT',
+    mode: 'cors',
+    redirect: 'follow'
+  }
+}
 
 export const getPosts = () =>
   fetch(`${api}/posts`, { headers: headersGet })
-    .then(res => res.json());
+    .then(res => res.json())
+    .catch(err => {/*TODO*/});
 
 export const getCategories = () =>
   fetch(`${api}/categories`, { headers: headersGet })
     .then(res => res.json())
+    .catch(err => {/*TODO*/});
 
 export const saveNewPost = ( post ) =>
   fetch(`${api}/posts`,
@@ -37,4 +51,12 @@ export const saveNewPost = ( post ) =>
         author: post.author,
         category: post.category
       }))
+    .then(res => res.json())
+
+export const updatePost = ( post ) =>
+fetch(`${api}/posts/${post.id}`,
+    headersPut({
+      title: post.title,
+      body: post.body,
+    }))
     .then(res => res.json())

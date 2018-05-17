@@ -9,7 +9,7 @@ export default function Post({ p, loadEditForm }) {
       <p>{`category: ${p.category}`}</p>
       <p>{`scores: ${p.voteScore}`}</p>
       <p>{`${p.commentCount} comments`}</p>
-      <p><em onClick={() => loadEditForm(true, false, p)}>Edit</em></p>
+      <p><em onClick={() => loadEditForm(true, p)}>Edit</em></p>
       <hr/>
     </div>
   );

@@ -1,6 +1,7 @@
 export const LOAD_POSTS = "LOAD_POSTS";
 export const LOAD_CATEGORIES = "LOAD_CATEGORIES";
-export const TOGGLE_POST_FORM_MODAL = "TOGGLE_POST_FORM_MODAL";
+export const TOGGLE_NEW_POST_MODAL = "TOGGLE_POST_FORM_MODAL";
+export const TOGGLE_EDIT_POST_MODAL = "TOGGLE_EDIT_POST_MODAL";
 export const APPEND_NEW_POST = "APPEND_NEW_POST";
 export const OPEN_EDIT_FORM_MODAL = "OPEN_EDIT_FORM_MODAL";
 
@@ -18,14 +19,17 @@ export function loadCategories( categories ) {
   }
 }
 
-export function togglePostFormModal( isOpen, isNewPost, post ) {
-  return isNewPost ? {
-    type: TOGGLE_POST_FORM_MODAL,
-    isOpen,
-    isNewPost
-  } : {
-    type: OPEN_EDIT_FORM_MODAL,
-    isOpen: true,
+export function toggleNewPostModal( isOpen ) {
+  return {
+    type: TOGGLE_NEW_POST_MODAL,
+    isOpen: !isOpen
+  }
+}
+
+export function toggleEditPostModal( isOpen, post ) {
+  return {
+    type: TOGGLE_EDIT_POST_MODAL,
+    isOpen: isOpen,
     post
   }
 }
