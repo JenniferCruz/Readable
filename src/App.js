@@ -23,22 +23,23 @@ class App extends Component {
 
   }
 
-  togglePostFormModal(isOpen) {
-    this.props.dispatch(Actions.togglePostFormModal(!isOpen));
+  togglePostFormModal(isOpen, isNewPost) {
+    // true to add new
+    this.props.dispatch(Actions.togglePostFormModal(!isOpen, isNewPost));
   }
 
   render() {
     Modal.setAppElement(document.getElementById('AppBody'));
 
-    const { posts, categories } = this.props;
-    const isOpenPostForm = this.props.modals.isOpenPostForm;
+    const { posts, categories, modals } = this.props;
+    const { isOpenPostForm } = modals;
 
     return (
       <div id="AppBody" className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="add-button"
-              onClick={() => this.togglePostFormModal(isOpenPostForm)}>
+              onClick={() => this.togglePostFormModal(isOpenPostForm, true)}>
               Add new post
           </h1>
         </header>
@@ -64,7 +65,7 @@ class App extends Component {
           contentLabel='Modal'
           shouldCloseOnOverlayClick={false}
         >
-          <h2 onClick={() => this.togglePostFormModal(isOpenPostForm)}>X</h2>
+          <h2 onClick={() => this.togglePostFormModal(isOpenPostForm, false)}>X</h2>
           <PostForm/>
         </Modal>
       </div>

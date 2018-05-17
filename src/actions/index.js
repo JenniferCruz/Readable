@@ -1,6 +1,7 @@
 export const LOAD_POSTS = "LOAD_POSTS";
 export const LOAD_CATEGORIES = "LOAD_CATEGORIES";
 export const TOGGLE_POST_FORM_MODAL = "TOGGLE_POST_FORM_MODAL";
+export const APPEND_NEW_POST = "APPEND_NEW_POST";
 
 export function loadPosts( posts ) {
   return {
@@ -16,9 +17,17 @@ export function loadCategories( categories ) {
   }
 }
 
-export function togglePostFormModal( isOpen ) {
+export function togglePostFormModal( isOpen, isNewPost ) {
   return {
     type: TOGGLE_POST_FORM_MODAL,
-    isOpen
+    isOpen,
+    isNewPost
+  }
+}
+
+export function appendNewPost( newPost ) {
+  return {
+    type: APPEND_NEW_POST,
+    newPost
   }
 }

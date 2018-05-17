@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import {
   LOAD_POSTS,
+  APPEND_NEW_POST,
   TOGGLE_POST_FORM_MODAL,
   LOAD_CATEGORIES
 } from '../actions'
@@ -9,6 +10,10 @@ function posts(posts = [], action) {
   switch (action.type) {
     case LOAD_POSTS:
       return action.posts;
+    case APPEND_NEW_POST:
+      const newPostsList = posts.slice(0);
+      newPostsList.push(action.newPost);
+      return newPostsList;
     default:
       return posts;
   }
@@ -23,10 +28,13 @@ function categories(categories = [], action) {
   }
 }
 
-function modals(modalsStatus = { isOpenPostForm: false }, action) {
+function modals(modalsStatus = { isOpenPostForm: false, isNewPost: false }, action) {
   switch (action.type) {
     case TOGGLE_POST_FORM_MODAL:
-      return {isOpenPostForm: action.isOpen};
+      return {
+        isOpenPostForm: action.isOpen,
+        isNewPost: action.isNewPost
+      };
     default:
       return modalsStatus;
   }
