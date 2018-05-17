@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import {
   LOAD_POSTS,
+  TOGGLE_POST_FORM_MODAL,
   LOAD_CATEGORIES
 } from '../actions'
 
@@ -22,7 +23,17 @@ function categories(categories = [], action) {
   }
 }
 
+function modals(modalsStatus = { isOpenPostForm: false }, action) {
+  switch (action.type) {
+    case TOGGLE_POST_FORM_MODAL:
+      return {isOpenPostForm: action.isOpen};
+    default:
+      return modalsStatus;
+  }
+}
+
 export default combineReducers({
   posts,
-  categories
+  categories,
+  modals
 });

@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import logo from './logo.svg';
+// import { Link } from 'react-router-dom'
+import logo from './logo.svg'
 import './App.css';
 import PostSnippet from './components/PostSnippet'
+import PostForm from './components/PostForm'
+import Modal from 'react-modal'
 import * as API from './ContentStorageAPI'
 import * as Actions from './actions'
 
@@ -20,14 +23,24 @@ class App extends Component {
 
   }
 
+  togglePostFormModal(isOpen) {
+    this.props.dispatch(Actions.togglePostFormModal(!isOpen));
+  }
+
   render() {
+    Modal.setAppElement(document.getElementById('AppBody'));
+
     const { posts, categories } = this.props;
+    const isOpenPostForm = this.props.modals.isOpenPostForm;
 
     return (
-      <div className="App">
+      <div id="AppBody" className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="add-button"
+              onClick={() => this.togglePostFormModal(isOpenPostForm)}>
+              Add new post
+          </h1>
         </header>
         <div>
           Categories
@@ -44,13 +57,23 @@ class App extends Component {
             }</ul>
           }
         </div>
+        <hr/>
+        <Modal
+          className='modal'
+          isOpen={isOpenPostForm}
+          contentLabel='Modal'
+          shouldCloseOnOverlayClick={false}
+        >
+          <h2 onClick={() => this.togglePostFormModal(isOpenPostForm)}>X</h2>
+          <PostForm/>
+        </Modal>
       </div>
     );
   }
 }
 
-function mapStateToProps ({ posts, categories }) {
-  return { posts, categories }
+function mapStateToProps ({ posts, categories, modals }) {
+  return { posts, categories, modals }
 }
 
 export default connect(mapStateToProps)(App);
