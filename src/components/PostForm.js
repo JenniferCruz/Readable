@@ -19,24 +19,28 @@ class PostForm extends Component {
   }
 
   render() {
+    const isNewPost = this.props.modals.isNewPost;
+    const post = this.props.modals.postInEdition;
+
     return (<div className="post-form">
       <form onSubmit={this.saveNewPost}>
-        Title:  <input type="text" name="title" required/><br/>
-        Author: <input type="text" name="author" required/><br/>
+        Title:  <input type="text" name="title" value={ isNewPost ? "" : post.title } required/><br/>
+        Author: <input type="text" name="author" value={ isNewPost ? "" : post.author } required/><br/>
         Category: <select name="category" required>{
           this.props.categories.map(c =>
-            (<option key={c.name} disabled={c.name === 'all'}>{c.name}</option>)
+            (<option key={c.name} disabled={c.name === 'all'} selected={!isNewPost && c.name === post.category}>{c.name}</option>)
           )}</select><br/><br/>
-        Body:   <textarea name="body" required/><br/>
+        Body:   <textarea name="body" value={ isNewPost ? "" : post.body } required/><br/>
         <button type="submit">save post</button>
       </form>
       <div id="form-feedback"></div>
     </div>)
+
   }
 }
 
-function mapStateToProps ({ categories }) {
-  return { categories }
+function mapStateToProps ({ categories, modals }) {
+  return { categories, modals }
 }
 
 export default connect(mapStateToProps)(PostForm);

@@ -23,9 +23,11 @@ class App extends Component {
 
   }
 
-  togglePostFormModal(isOpen, isNewPost) {
-    // true to add new
-    this.props.dispatch(Actions.togglePostFormModal(!isOpen, isNewPost));
+  togglePostFormModal(currentStatus, isNewPost, post) {
+    isNewPost ?
+      this.props.dispatch(Actions.togglePostFormModal(!currentStatus, isNewPost))
+      :
+      this.props.dispatch(Actions.togglePostFormModal(currentStatus, false, post));
   }
 
   render() {
@@ -52,7 +54,7 @@ class App extends Component {
             <ul>{
                 posts.map(p =>
                   (<li key={p.id}>{
-                    <PostSnippet p={p}/>
+                    <PostSnippet p={p} loadEditForm={this.togglePostFormModal.bind(this)}/>
                   }</li>)
                 )
             }</ul>

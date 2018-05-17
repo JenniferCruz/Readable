@@ -3,6 +3,7 @@ import {
   LOAD_POSTS,
   APPEND_NEW_POST,
   TOGGLE_POST_FORM_MODAL,
+  OPEN_EDIT_FORM_MODAL,
   LOAD_CATEGORIES
 } from '../actions'
 
@@ -35,6 +36,11 @@ function modals(modalsStatus = { isOpenPostForm: false, isNewPost: false }, acti
         isOpenPostForm: action.isOpen,
         isNewPost: action.isNewPost
       };
+    case OPEN_EDIT_FORM_MODAL:
+      return {
+        isOpenPostForm: action.isOpen,
+        postInEdition: action.post
+      }
     default:
       return modalsStatus;
   }
