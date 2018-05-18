@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-// import { Link } from 'react-router-dom'
+import { BrowserRouter, Link, Route } from 'react-router-dom'
 import logo from './logo.svg'
 import './App.css';
-import PostSnippet from './components/PostSnippet'
 import PostForm from './components/PostForm'
+import Header from './components/Header'
+import Categories from './components/Categories'
+import PostsList from './components/PostsList'
 import Modal from 'react-modal'
 import * as API from './ContentStorageAPI'
 import * as Actions from './actions'
@@ -16,12 +18,11 @@ class App extends Component {
     this.props.dispatch(Actions.loadCategories())
   }
 
-  toggleNewPostModal(currentStatus) {
+  toggleModal(currentStatus, post) {
+    if (post)
+      this.props.dispatch(Actions.toggleEditPostModal(currentStatus, post));
+    else
       this.props.dispatch(Actions.toggleNewPostModal(currentStatus))
-  }
-
-  toggleEditPostModal(currentStatus, post) {
-    this.props.dispatch(Actions.toggleEditPostModal(currentStatus, post));
   }
 
   deletePost( id ) {
@@ -31,50 +32,36 @@ class App extends Component {
   render() {
     Modal.setAppElement(document.getElementById('AppBody'));
 
-    const { posts, categories, modals } = this.props;
-    const { isOpenPostForm } = modals;
+    const { posts, categories, activeOptions } = this.props;
+    const { isOpenPostForm } = activeOptions;
 
     return (
+    <BrowserRouter>
       <div id="AppBody" className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="add-button"
-              onClick={() => this.toggleNewPostModal(isOpenPostForm)}>
-              Add new post
-          </h1>
-        </header>
-        <div>
-          Categories
-        </div>
-        <hr/>
-        <div>
-          {
-            <ul>{
-                posts.map(p =>
-                  (<li key={p.id}>{
-                    <PostSnippet p={p} loadEditForm={this.toggleEditPostModal.bind(this)} deletePost={this.deletePost.bind(this)}/>
-                  }</li>)
-                )
-            }</ul>
-          }
-        </div>
-        <hr/>
+        <Header toggleModal={this.toggleModal.bind(this)}/>
+        <Route path="/" component={Categories}/>
+        <Route exact path='/' component={PostsList}
+          toggleModal={this.toggleModal.bind(this)} deletePost={this.deletePost.bind(this)}/>
+        <Route exact path='/:cname' component={PostsList}
+          toggleModal={this.toggleModal.bind(this)} deletePost={this.deletePost.bind(this)}/>
+
         <Modal
           className='modal'
           isOpen={isOpenPostForm}
           contentLabel='Modal'
           shouldCloseOnOverlayClick={false}
         >
-          <h2 onClick={() => this.toggleNewPostModal(isOpenPostForm, false)}>X</h2>
+          <h2 onClick={() => this.toggleModal(isOpenPostForm, false)}>X</h2>
           <PostForm/>
         </Modal>
       </div>
+    </BrowserRouter>
     );
   }
 }
 
-function mapStateToProps ({ posts, categories, modals }) {
-  return { posts, categories, modals }
+function mapStateToProps ({ posts, categories, activeOptions }) {
+  return { posts, categories, activeOptions }
 }
 
 export default connect(mapStateToProps)(App);

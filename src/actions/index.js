@@ -2,12 +2,13 @@ import * as API from '../ContentStorageAPI'
 
 export const LOAD_POSTS = "LOAD_POSTS";
 export const LOAD_CATEGORIES = "LOAD_CATEGORIES";
+export const UPDATE_POST_IN_LIST = "UPDATE_POST_IN_LIST";
+export const DELETE_POST_FROM_LIST = "DELETE_POST_FROM_LIST";
+export const UPDATE_POST_IN_EDITION = "UPDATE_POST_IN_EDITION";
+export const UPDATE_ACTIVE_CATEGORY = "UPDATE_ACTIVE_CATEGORY";
 export const TOGGLE_NEW_POST_MODAL = "TOGGLE_POST_FORM_MODAL";
 export const TOGGLE_EDIT_POST_MODAL = "TOGGLE_EDIT_POST_MODAL";
 export const OPEN_EDIT_FORM_MODAL = "OPEN_EDIT_FORM_MODAL";
-export const UPDATE_POST_IN_EDITION = "UPDATE_POST_IN_EDITION";
-export const UPDATE_POST_IN_LIST = "UPDATE_POST_IN_LIST";
-export const DELETE_POST_FROM_LIST = "DELETE_POST_FROM_LIST";
 
 export const loadPosts = () => dispatch => {
   API.getPosts().then(posts => dispatch({
@@ -57,6 +58,13 @@ export function deletePostFromList( id ) {
   return {
     type: DELETE_POST_FROM_LIST,
     id
+  }
+}
+
+export function updateActiveCategory( name ) {
+  return {
+    type: UPDATE_ACTIVE_CATEGORY,
+    name
   }
 }
 

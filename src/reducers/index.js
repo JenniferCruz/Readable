@@ -6,7 +6,8 @@ import {
   LOAD_CATEGORIES,
   UPDATE_POST_IN_EDITION,
   UPDATE_POST_IN_LIST,
-  DELETE_POST_FROM_LIST
+  DELETE_POST_FROM_LIST,
+  UPDATE_ACTIVE_CATEGORY
 } from '../actions'
 
 function posts(posts = [], action) {
@@ -40,7 +41,7 @@ function categories(categories = [], action) {
   }
 }
 
-function modals(modalsStatus = { isOpenPostForm: false, postInEdition: {} }, action) {
+function activeOptions(modalsStatus = { isOpenPostForm: false, postInEdition: {}, selectedCategory: null }, action) {
   switch (action.type) {
     case TOGGLE_NEW_POST_MODAL:
       return {
@@ -59,6 +60,10 @@ function modals(modalsStatus = { isOpenPostForm: false, postInEdition: {} }, act
         postInEdition: action.post,
         isOpenPostForm: action.isOpen
       }
+    case UPDATE_ACTIVE_CATEGORY:
+      return {
+        // TODO
+      }
     default:
       return modalsStatus;
   }
@@ -67,5 +72,5 @@ function modals(modalsStatus = { isOpenPostForm: false, postInEdition: {} }, act
 export default combineReducers({
   posts,
   categories,
-  modals
+  activeOptions
 });

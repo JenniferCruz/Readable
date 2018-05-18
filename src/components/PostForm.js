@@ -19,7 +19,7 @@ class PostForm extends Component {
   }
 
   render() {
-    const post = this.props.modals.postInEdition || {};
+    const post = this.props.activeOptions.postInEdition || {};
     const isNewPost = post.id === undefined;
 
     return (<div className="post-form">
@@ -47,8 +47,8 @@ class PostForm extends Component {
   }
 }
 
-function mapStateToProps ({ categories, modals }) {
-  return { categories, modals }
+function mapStateToProps ({ categories, activeOptions }) {
+  return { categories, activeOptions }
 }
 
 export default connect(mapStateToProps)(PostForm);
