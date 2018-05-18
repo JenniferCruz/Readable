@@ -16,14 +16,11 @@ class PostForm extends Component {
     e.preventDefault();
     const p = post.id ? post : serializeForm(e.target, {hash: true});
     this.props.dispatch(Actions.savePost( p ));
-    //     this.props.dispatch(Actions.updatePostInEdition({}, true));
-    //     this.props.dispatch(Actions.toggleNewPostModal(true));
   }
 
   render() {
     const post = this.props.modals.postInEdition || {};
     const isNewPost = post.id === undefined;
-    console.log("THISZZZ", this)
 
     return (<div className="post-form">
       <form onSubmit={ e => this.savePost(e, post) }>

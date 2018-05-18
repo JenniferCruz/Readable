@@ -62,7 +62,12 @@ export function deletePostFromList( id ) {
 
 export const savePost = post => dispatch => {
   const save = post.id === undefined ? API.savePost : API.updatePost;
-  save( post ).then( p => dispatch(updateListWithPost( p )))
+  save( post ).then( p => {
+    dispatch(updateListWithPost( p ))
+    dispatch(updatePostInEdition({}, true));
+    dispatch(toggleNewPostModal(true));
+
+  })
 };
 
 export const deletePost = id => dispatch =>
