@@ -9,19 +9,19 @@ export const UPDATE_POST_IN_EDITION = "UPDATE_POST_IN_EDITION";
 export const UPDATE_POST_IN_LIST = "UPDATE_POST_IN_LIST";
 export const DELETE_POST_FROM_LIST = "DELETE_POST_FROM_LIST";
 
-export function loadPosts( posts ) {
-  return {
+export const loadPosts = () => dispatch => {
+  API.getPosts().then(posts => dispatch({
     type: LOAD_POSTS,
     posts
-  }
+  }));
 }
 
-export function loadCategories( categories ) {
-  return {
-    type: LOAD_CATEGORIES,
-    categories
-  }
-}
+export const loadCategories = () => dispatch => {
+  API.getCategories().then(categories => dispatch({
+      type: LOAD_CATEGORIES,
+      categories: categories.categories
+    })
+  )}
 
 export function toggleNewPostModal( isOpen ) {
   return {
@@ -60,7 +60,7 @@ export function deletePostFromList( id ) {
   }
 }
 
-export const savePost = ( post ) => dispatch => {
+export const savePost = post => dispatch => {
   const save = post.id === undefined ? API.savePost : API.updatePost;
   save( post ).then( p => dispatch(updateListWithPost( p )))
 };

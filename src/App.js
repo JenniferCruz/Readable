@@ -12,15 +12,8 @@ import * as Actions from './actions'
 class App extends Component {
 
   componentDidMount() {
-    API.getPosts().then(
-       posts =>
-         this.props.dispatch(Actions.loadPosts(posts))
-       );
-    API.getCategories().then(
-      ({ categories }) =>
-         this.props.dispatch(Actions.loadCategories(categories))
-      );
-
+    this.props.dispatch(Actions.loadPosts())
+    this.props.dispatch(Actions.loadCategories())
   }
 
   toggleNewPostModal(currentStatus) {

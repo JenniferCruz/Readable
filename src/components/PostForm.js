@@ -23,6 +23,7 @@ class PostForm extends Component {
   render() {
     const post = this.props.modals.postInEdition || {};
     const isNewPost = post.id === undefined;
+    console.log("THISZZZ", this)
 
     return (<div className="post-form">
       <form onSubmit={ e => this.savePost(e, post) }>
