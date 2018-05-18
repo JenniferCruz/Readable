@@ -5,7 +5,8 @@ import {
   TOGGLE_EDIT_POST_MODAL,
   LOAD_CATEGORIES,
   UPDATE_POST_IN_EDITION,
-  UPDATE_POST_IN_LIST
+  UPDATE_POST_IN_LIST,
+  DELETE_POST_FROM_LIST
 } from '../actions'
 
 function posts(posts = [], action) {
@@ -17,6 +18,11 @@ function posts(posts = [], action) {
         posts.push(action.post);
       else
         posts[i] = action.post;
+      return posts;
+    case DELETE_POST_FROM_LIST:
+      posts = posts.slice(0);
+      const j = posts.findIndex(p => p.id === action.id);
+      posts.splice(j, j+1);
       return posts;
     case LOAD_POSTS:
       return action.posts;

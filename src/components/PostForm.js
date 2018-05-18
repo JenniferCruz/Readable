@@ -15,7 +15,7 @@ class PostForm extends Component {
   savePost = ( e, post ) => {
     e.preventDefault();
     const p = post.id ? post : serializeForm(e.target, {hash: true});
-    Actions.savePost( p )( this.props.dispatch );
+    this.props.dispatch(Actions.savePost( p ));
     //     this.props.dispatch(Actions.updatePostInEdition({}, true));
     //     this.props.dispatch(Actions.toggleNewPostModal(true));
   }

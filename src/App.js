@@ -13,7 +13,7 @@ class App extends Component {
 
   componentDidMount() {
     API.getPosts().then(
-       posts => 
+       posts =>
          this.props.dispatch(Actions.loadPosts(posts))
        );
     API.getCategories().then(
@@ -29,6 +29,10 @@ class App extends Component {
 
   toggleEditPostModal(currentStatus, post) {
     this.props.dispatch(Actions.toggleEditPostModal(currentStatus, post));
+  }
+
+  deletePost( id ) {
+    this.props.dispatch(Actions.deletePost( id ));
   }
 
   render() {
@@ -55,7 +59,7 @@ class App extends Component {
             <ul>{
                 posts.map(p =>
                   (<li key={p.id}>{
-                    <PostSnippet p={p} loadEditForm={this.toggleEditPostModal.bind(this)}/>
+                    <PostSnippet p={p} loadEditForm={this.toggleEditPostModal.bind(this)} deletePost={this.deletePost.bind(this)}/>
                   }</li>)
                 )
             }</ul>

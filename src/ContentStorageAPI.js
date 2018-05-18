@@ -31,6 +31,19 @@ const headersPut = (data) => {
   }
 }
 
+const headersDelete = () => {
+  return {
+    headers: {
+        'content-type': 'application/json',
+        'Authorization': ':-)'
+    },
+    method: 'DELETE',
+    mode: 'cors',
+    redirect: 'follow'
+  }
+}
+
+
 export const getPosts = () =>
   fetch(`${api}/posts`, { headers: headersGet })
     .then(res => res.json())
@@ -56,9 +69,13 @@ export const savePost = ( post ) =>
     .then(res => res.json())
 
 export const updatePost = ( post ) =>
-fetch(`${api}/posts/${post.id}`,
+  fetch(`${api}/posts/${post.id}`,
     headersPut({
       title: post.title,
       body: post.body,
     }))
+    .then(res => res.json())
+
+export const deletePost = id =>
+  fetch(`${api}/posts/${id}`, headersDelete())
     .then(res => res.json())
