@@ -1,9 +1,12 @@
+import * as API from '../ContentStorageAPI'
+
 export const LOAD_POSTS = "LOAD_POSTS";
 export const LOAD_CATEGORIES = "LOAD_CATEGORIES";
 export const TOGGLE_NEW_POST_MODAL = "TOGGLE_POST_FORM_MODAL";
 export const TOGGLE_EDIT_POST_MODAL = "TOGGLE_EDIT_POST_MODAL";
-export const APPEND_NEW_POST = "APPEND_NEW_POST";
 export const OPEN_EDIT_FORM_MODAL = "OPEN_EDIT_FORM_MODAL";
+export const UPDATE_POST_IN_EDITION = "UPDATE_POST_IN_EDITION";
+export const UPDATE_POST_IN_LIST = "UPDATE_POST_IN_LIST";
 
 export function loadPosts( posts ) {
   return {
@@ -29,14 +32,29 @@ export function toggleNewPostModal( isOpen ) {
 export function toggleEditPostModal( isOpen, post ) {
   return {
     type: TOGGLE_EDIT_POST_MODAL,
-    isOpen: isOpen,
+    isOpen,
     post
   }
 }
 
-export function appendNewPost( newPost ) {
+export function updatePostInEdition( post ) {
   return {
-    type: APPEND_NEW_POST,
-    newPost
+    type: UPDATE_POST_IN_EDITION,
+    isOpen: true,
+    post
   }
 }
+
+export function updateListWithPost( post ) {
+  return {
+    type: UPDATE_POST_IN_LIST,
+    post
+  }
+}
+
+export const savePost = ( post ) => dispatch => {
+  const save = post.id === undefined ? API.savePost : API.updatePost;
+  save( post ).then(( p ) => {
+    dispatch(updateListWithPost( p ))
+  })
+};

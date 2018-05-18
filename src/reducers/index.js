@@ -1,20 +1,25 @@
 import { combineReducers } from 'redux'
 import {
   LOAD_POSTS,
-  APPEND_NEW_POST,
   TOGGLE_NEW_POST_MODAL,
   TOGGLE_EDIT_POST_MODAL,
-  LOAD_CATEGORIES
+  LOAD_CATEGORIES,
+  UPDATE_POST_IN_EDITION,
+  UPDATE_POST_IN_LIST
 } from '../actions'
 
 function posts(posts = [], action) {
   switch (action.type) {
+    case UPDATE_POST_IN_LIST:
+      posts = posts.slice(0);
+      const i = posts.findIndex(p => p.id === action.post.id);
+      if (i < 0) // is a new post
+        posts.push(action.post);
+      else
+        posts[i] = action.post;
+      return posts;
     case LOAD_POSTS:
       return action.posts;
-    case APPEND_NEW_POST:
-      const newPostsList = posts.slice(0);
-      newPostsList.push(action.newPost);
-      return newPostsList;
     default:
       return posts;
   }
@@ -39,9 +44,14 @@ function modals(modalsStatus = { isOpenPostForm: false, postInEdition: {} }, act
       };
     case TOGGLE_EDIT_POST_MODAL:
       return {
-        isOpenPostForm: true,
+        isOpenPostForm: action.isOpen,
         postInEdition: action.isOpen ? action.post : {},
         isNewPost: false
+      }
+    case UPDATE_POST_IN_EDITION:
+      return {
+        postInEdition: action.post,
+        isOpenPostForm: action.isOpen
       }
     default:
       return modalsStatus;

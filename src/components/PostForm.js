@@ -5,47 +5,47 @@ import * as API from '../ContentStorageAPI'
 import * as Actions from '../actions'
 
 class PostForm extends Component {
-  saveNewPost = ( e ) => {
-    e.preventDefault();
-    const newPost = serializeForm(e.target, {hash: true});
-    newPost.voteScore = 1;
-    newPost.commentCount = 0;
-    newPost.timestamp = Date.now();
-    API.saveNewPost(newPost).then(response => {
-      // TODO: if (response.error)
-      this.props.dispatch(Actions.appendNewPost( newPost ));
-      // TODO: give user feedback ("succes!")
-    });
+
+  handleChange = ( e, post ) => {
+    const p = Object.assign({}, post);
+    p[e.target.name] = e.target.value;
+    this.props.dispatch(Actions.updatePostInEdition( p ));
   }
 
-  updatePost = ( e ) => {
+  savePost = ( e, post ) => {
     e.preventDefault();
-    const post = serializeForm(e.target, {hash: true});
-    API.updatePost(post).then(response => {
-      // TODO: if (response.error)
-      // this.props.dispatch(Actions.updatePost( post ));
-      // TODO: give user feedback ("succes!")
-    });
+    const p = post.id ? post : serializeForm(e.target, {hash: true});
+    Actions.savePost( p )( this.props.dispatch );
+    //     this.props.dispatch(Actions.updatePostInEdition({}, true));
+    //     this.props.dispatch(Actions.toggleNewPostModal(true));
   }
 
   render() {
-    const isNewPost = this.props.modals.isNewPost;
-    const post = this.props.modals.postInEdition;
+    const post = this.props.modals.postInEdition || {};
+    const isNewPost = post.id === undefined;
 
     return (<div className="post-form">
-      <form onSubmit={isNewPost ? this.saveNewPost : this.updatePost}>
-        Title:  <input type="text" name="title" value={ isNewPost ? "" : post.title } required/><br/>
-        Author: <input type="text" name="author" value={ isNewPost ? "" : post.author } required/><br/>
-        Category: <select name="category" required>{
-          this.props.categories.map(c =>
-            (<option key={c.name} disabled={c.name === 'all'} selected={!isNewPost && c.name === post.category}>{c.name}</option>)
-          )}</select><br/><br/>
-        Body:   <textarea name="body" value={ isNewPost ? "" : post.body } required/><br/>
-        <button type="submit">{isNewPost ? "save post" : "update"}</button>
+      <form onSubmit={ e => this.savePost(e, post) }>
+
+        Title: <input type="text" name="title" value={ post.title }
+                  onChange={ e => this.handleChange(e, post) } required/><br/>
+        Author: <input type="text" name="author" value={ post.author } disabled={!isNewPost}
+                  onChange={ e => this.handleChange(e, post) } required/><br/>
+        Category: <select name="category" disabled={!isNewPost} value={post.category}
+                    onChange={ e => this.handleChange(e, post) } required>{
+                      this.props.categories.map(c =>
+                        (<option key={c.name} disabled={!isNewPost}>
+                              {c.name}
+                        </option>)
+                  )}</select><br/><br/>
+        Body: <textarea name="body" value={ post.body }
+                onChange={ e => this.handleChange(e, post) } required/><br/>
+
+        <button type="submit"> {isNewPost ? "save post" : "update"} </button>
+
       </form>
       <div id="form-feedback"></div>
     </div>)
-
   }
 }
 

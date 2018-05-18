@@ -41,7 +41,9 @@ export const getCategories = () =>
     .then(res => res.json())
     .catch(err => {/*TODO*/});
 
-export const saveNewPost = ( post ) =>
+export const saveNewPost = ( post ) => {};
+
+export const savePost = ( post ) =>
   fetch(`${api}/posts`,
       headersPost({
         id: Date.now(),
