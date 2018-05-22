@@ -74,6 +74,12 @@ export const updatePost = ( post ) =>
     }))
     .then(res => res.json())
 
+export const updatePostVote = ( id, vote ) =>
+  fetch(`${api}/posts/${id}`, headersPost(
+      { option: vote > 0 ? 'upVote' : 'downVote'}))
+    .then(res => res.json())
+
+
 export const deletePost = id =>
   fetch(`${api}/posts/${id}`, headersDelete())
     .then(res => res.json())

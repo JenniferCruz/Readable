@@ -76,6 +76,11 @@ export const loadComments = postID => dispatch => {
     }))
 }
 
+export const updateVoteScore = (id, vote) => dispatch => {
+  API.updatePostVote(id, vote).then(updatedPost =>
+    dispatch(updateListWithPost( updatedPost ))
+  );
+}
 
 export const savePost = post => dispatch => {
   const save = post.id === undefined ? API.savePost : API.updatePost;
