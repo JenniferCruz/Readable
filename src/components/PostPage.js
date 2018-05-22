@@ -16,9 +16,10 @@ class PostPage extends Component {
 
   render() {
     const id = this.getPostID();
-    const post = this.props.posts.find(p => p.id === id);
-
-    return !post ? (<div>Loading post</div>) : (<div>
+    const post = this.props.posts.find(p => id === p.id.toString());
+    return !post ?
+    (<div>Loading post</div>) : // TODO: Not found page if no post
+    (<div>
         <div>
           <h2>{post.title}</h2>
           <p>{`by ${post.author} on ${post.timestamp}`}</p>
