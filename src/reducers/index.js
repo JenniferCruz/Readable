@@ -7,7 +7,8 @@ import {
   UPDATE_POST_IN_EDITION,
   UPDATE_POST_IN_LIST,
   DELETE_POST_FROM_LIST,
-  UPDATE_ACTIVE_CATEGORY
+  UPDATE_ACTIVE_CATEGORY,
+  LOAD_ACTIVE_POSTS_COMMENTS
 } from '../actions'
 
 function posts(posts = [], action) {
@@ -38,6 +39,15 @@ function categories(categories = [], action) {
       return action.categories;
     default:
       return categories;
+  }
+}
+
+function comments(comments =[], action) {
+  switch (action.type) {
+    case LOAD_ACTIVE_POSTS_COMMENTS:
+      return action.comments;
+    default:
+      return comments;
   }
 }
 
@@ -72,5 +82,6 @@ function activeOptions(modalsStatus = { isOpenPostForm: false, postInEdition: {}
 export default combineReducers({
   posts,
   categories,
-  activeOptions
+  activeOptions,
+  comments
 });

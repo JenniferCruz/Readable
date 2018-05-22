@@ -77,3 +77,7 @@ export const updatePost = ( post ) =>
 export const deletePost = id =>
   fetch(`${api}/posts/${id}`, headersDelete())
     .then(res => res.json())
+
+export const getComments = id =>
+  fetch(`${api}/posts/${id}/comments`, { headers: headersGet })
+    .then(res => res.json());

@@ -9,6 +9,7 @@ export const UPDATE_ACTIVE_CATEGORY = "UPDATE_ACTIVE_CATEGORY";
 export const TOGGLE_NEW_POST_MODAL = "TOGGLE_POST_FORM_MODAL";
 export const TOGGLE_EDIT_POST_MODAL = "TOGGLE_EDIT_POST_MODAL";
 export const OPEN_EDIT_FORM_MODAL = "OPEN_EDIT_FORM_MODAL";
+export const LOAD_ACTIVE_POSTS_COMMENTS = "LOAD_ACTIVE_POSTS_COMMENTS";
 
 export const loadPosts = () => dispatch => {
   API.getPosts().then(posts => dispatch({
@@ -67,6 +68,14 @@ export function updateActiveCategory( name ) {
     name
   }
 }
+
+export const loadComments = postID => dispatch => {
+  API.getComments( postID ).then( comments => dispatch({
+      type: LOAD_ACTIVE_POSTS_COMMENTS,
+      comments
+    }))
+}
+
 
 export const savePost = post => dispatch => {
   const save = post.id === undefined ? API.savePost : API.updatePost;

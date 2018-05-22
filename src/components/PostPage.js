@@ -2,12 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import * as API from '../ContentStorageAPI'
 import * as Actions from '../actions'
+import Comments from './Comments'
 
 class PostPage extends Component {
-  componentDidMount() {}
+  getPostID() {
+    return this.props.location.pathname.split("/").pop();
+  }
+
+  componentDidMount() {
+    this.props.dispatch(Actions.loadComments(this.getPostID()));
+  }
 
   render() {
-    const id = this.props.location.pathname.split("/").pop();
+    const id = this.getPostID();
     const post = this.props.posts.find(p => p.id === id);
 
     return !post ? (<div>Loading post</div>) : (<div>
@@ -19,8 +26,7 @@ class PostPage extends Component {
           <p>{`${post.commentCount} comments`}</p>
           <div>{post.body}</div>
         </div>
-        <div id="comments">
-        </div>
+        <Comments/>
       </div>);
   }
 }
