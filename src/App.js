@@ -40,10 +40,15 @@ class App extends Component {
       <div id="AppBody" className="App">
         <Header toggleModal={this.toggleModal.bind(this)}/>
         <Route path="/" component={Categories}/>
-        <Route exact path='/' component={PostsList}
-          toggleModal={this.toggleModal.bind(this)} deletePost={this.deletePost.bind(this)}/>
-        <Route exact path='/:cname' component={PostsList}
-          toggleModal={this.toggleModal.bind(this)} deletePost={this.deletePost.bind(this)}/>
+        <Route exact path='/' render={routeProps =>
+          (<PostsList {...routeProps} toggleModal={this.toggleModal.bind(this)}
+                      deletePost={this.deletePost.bind(this)}/>)
+        }/>
+
+        <Route exact path='/:cname' render={routeProps =>
+          (<PostsList {...routeProps} toggleModal={this.toggleModal.bind(this)}
+                      deletePost={this.deletePost.bind(this)}/>)
+        }/>
 
         <Modal
           className='modal'

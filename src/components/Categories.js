@@ -14,7 +14,7 @@ class Categories extends Component {
           {
             categories.map(c =>
               (<li key={c.name}>
-                <NavLink to={c.path} activeClassName="selected-category" exact>
+                <NavLink to={`/${c.path}`} activeClassName="selected-category">
                   {c.name}
                 </NavLink>
               </li>)
