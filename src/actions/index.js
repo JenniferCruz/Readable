@@ -12,6 +12,8 @@ export const UPDATE_COMMENT = "UPDATE_COMMENT";
 export const UPDATE_POST_IN_LIST = "UPDATE_POST_IN_LIST";
 export const DELETE_POST_FROM_LIST = "DELETE_POST_FROM_LIST";
 export const DELETE_COMMENT_FROM_LIST = "DELETE_COMMENT_FROM_LIST";
+export const ORDER_POSTS_BY_SCORE = 'ORDER_POSTS_BY_SCORE';
+export const ORDER_POSTS_BY_DATE = 'ORDER_POSTS_BY_DATE';
 
 function updateComment( comment ) {
   return {
@@ -38,6 +40,12 @@ function deleteCommentFromList( id ) {
   return {
     type: DELETE_COMMENT_FROM_LIST,
     id
+  }
+}
+
+export function orderPosts( byCriteria ) {
+  return {
+    type: byCriteria
   }
 }
 

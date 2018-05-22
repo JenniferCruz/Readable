@@ -7,7 +7,7 @@ import LoadPostFormButton from './LoadPostFormButton'
 class Header extends Component {
 
   render() {
-    const { isOpenPostForm } = this.props.activeOptions;
+    const isOpenPostForm = this.props.activeOptions.isOpenPostForm;
 
     return (
       <header>

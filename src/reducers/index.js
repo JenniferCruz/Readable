@@ -10,7 +10,9 @@ import {
   UPDATE_POST_IN_EDITION,
   UPDATE_POST_IN_LIST,
   DELETE_POST_FROM_LIST,
-  DELETE_COMMENT_FROM_LIST
+  DELETE_COMMENT_FROM_LIST,
+  ORDER_POSTS_BY_SCORE,
+  ORDER_POSTS_BY_DATE
 } from '../actions'
 
 function getIndex(item, list) {
@@ -43,6 +45,12 @@ function posts(posts = [], action) {
       return deleteFromList(posts, {id: action.id});
     case LOAD_POSTS:
       return action.posts;
+    case ORDER_POSTS_BY_SCORE:
+      posts = posts.slice(0);
+      return posts.sort((p, q) => p.voteScore < q.voteScore);
+    case ORDER_POSTS_BY_DATE:
+      posts = posts.slice(0);
+      return posts.sort((p, q) => p.timestamp < q.timestamp);
     default:
       return posts;
   }
