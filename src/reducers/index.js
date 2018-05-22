@@ -1,26 +1,32 @@
 import { combineReducers } from 'redux'
 import {
   LOAD_POSTS,
+  LOAD_CATEGORIES,
+  LOAD_ACTIVE_POSTS_COMMENTS,
   TOGGLE_NEW_POST_MODAL,
   TOGGLE_EDIT_POST_MODAL,
-  LOAD_CATEGORIES,
+  UPDATE_ACTIVE_CATEGORY,
+  UPDATE_COMMENT,
   UPDATE_POST_IN_EDITION,
   UPDATE_POST_IN_LIST,
-  DELETE_POST_FROM_LIST,
-  UPDATE_ACTIVE_CATEGORY,
-  LOAD_ACTIVE_POSTS_COMMENTS
+  DELETE_POST_FROM_LIST
 } from '../actions'
+
+function getUpdtedList(list, newElement) {
+  list = list.slice(0);
+  const i = list.findIndex(e => e.id === newElement.id);
+  if (i < 0) // is a new element
+    list.push(newElement);
+  else
+    list[i] = newElement;
+  return list;
+
+}
 
 function posts(posts = [], action) {
   switch (action.type) {
     case UPDATE_POST_IN_LIST:
-      posts = posts.slice(0);
-      const i = posts.findIndex(p => p.id === action.post.id);
-      if (i < 0) // is a new post
-        posts.push(action.post);
-      else
-        posts[i] = action.post;
-      return posts;
+      return getUpdtedList(posts, action.post);
     case DELETE_POST_FROM_LIST:
       posts = posts.slice(0);
       const j = posts.findIndex(p => p.id === action.id);
@@ -46,6 +52,8 @@ function comments(comments =[], action) {
   switch (action.type) {
     case LOAD_ACTIVE_POSTS_COMMENTS:
       return action.comments;
+    case UPDATE_COMMENT:
+      return getUpdtedList(comments, action.comment);
     default:
       return comments;
   }

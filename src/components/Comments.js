@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import * as Actions from '../actions'
+import Vote from './Vote'
 
 class Comments extends Component {
   render() {
@@ -13,7 +14,8 @@ class Comments extends Component {
           <div>
             <h4>{c.author} says:</h4>
             <p>{c.body}</p>
-            <em>Vote Score: {c.voteScore} | Date: {new Date(c.timestamp).toDateString()}</em>
+            <em>Date: {new Date(c.timestamp).toDateString()}</em>
+            <Vote item={c}/>
           </div>
         </div>))
       }</div>)

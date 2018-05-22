@@ -13,7 +13,7 @@ export default function Post({ p, loadEditForm }) {
       <p>{`scores: ${p.voteScore}`}</p>
       <p>{`${p.commentCount} comments`}</p>
       <p><LoadPostFormButton isOpen={true} post={p} displayText="Edit"/> | <DeleteButton id={p.id} /></p>
-      <Vote post={p}/>
+      <Vote item={p}/>
       <hr/>
     </div>
   );

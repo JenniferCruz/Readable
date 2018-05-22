@@ -5,30 +5,30 @@ import FaCaretDown from 'react-icons/lib/fa/caret-down';
 import * as Actions from '../actions'
 
 class Vote extends Component {
-  updateVoteScore(e, postID, vote) {
+  updateVoteScore(e, item, vote) {
     e.preventDefault();
-    this.props.dispatch(Actions.updateVoteScore(postID, vote));
+    this.props.dispatch(Actions.updateVoteScore(item, vote));
   }
 
   render() {
-    const post = this.props.post;
+    const item = this.props.item;
 
     return (<div>
-        <div>{post.voteScore}</div>
-        <div className="post-vote">
+        <div>{item.voteScore}</div>
+        <div>
           <a href="" title="vote up"
-            onClick={(e)=>this.updateVoteScore(e, post.id, 1)}>
+            onClick={(e)=>this.updateVoteScore(e, item, 1)}>
               <FaCaretUp/></a>
           <a href="" title="vote down"
-            onClick={(e)=>this.updateVoteScore(e, post.id, -1)}>
+            onClick={(e)=>this.updateVoteScore(e, item, -1)}>
               <FaCaretDown/></a>
         </div>
       </div>);
   }
 }
 
-function mapStateToProps ({ posts }) {
-  return { posts }
+function mapStateToProps ({ posts, comments }) {
+  return { posts, comments }
 }
 
 export default connect(mapStateToProps)(Vote);

@@ -2,14 +2,36 @@ import * as API from '../ContentStorageAPI'
 
 export const LOAD_POSTS = "LOAD_POSTS";
 export const LOAD_CATEGORIES = "LOAD_CATEGORIES";
-export const UPDATE_POST_IN_LIST = "UPDATE_POST_IN_LIST";
-export const DELETE_POST_FROM_LIST = "DELETE_POST_FROM_LIST";
-export const UPDATE_POST_IN_EDITION = "UPDATE_POST_IN_EDITION";
-export const UPDATE_ACTIVE_CATEGORY = "UPDATE_ACTIVE_CATEGORY";
+export const LOAD_ACTIVE_POSTS_COMMENTS = "LOAD_ACTIVE_POSTS_COMMENTS";
 export const TOGGLE_NEW_POST_MODAL = "TOGGLE_POST_FORM_MODAL";
 export const TOGGLE_EDIT_POST_MODAL = "TOGGLE_EDIT_POST_MODAL";
 export const OPEN_EDIT_FORM_MODAL = "OPEN_EDIT_FORM_MODAL";
-export const LOAD_ACTIVE_POSTS_COMMENTS = "LOAD_ACTIVE_POSTS_COMMENTS";
+export const UPDATE_POST_IN_EDITION = "UPDATE_POST_IN_EDITION";
+export const UPDATE_ACTIVE_CATEGORY = "UPDATE_ACTIVE_CATEGORY";
+export const UPDATE_COMMENT = "UPDATE_COMMENT";
+export const UPDATE_POST_IN_LIST = "UPDATE_POST_IN_LIST";
+export const DELETE_POST_FROM_LIST = "DELETE_POST_FROM_LIST";
+
+function updateComment( comment ) {
+  return {
+    type: UPDATE_COMMENT,
+    comment
+  }
+}
+
+function updateListWithPost( post ) {
+  return {
+    type: UPDATE_POST_IN_LIST,
+    post
+  }
+}
+
+function deletePostFromList( id ) {
+  return {
+    type: DELETE_POST_FROM_LIST,
+    id
+  }
+}
 
 export const loadPosts = () => dispatch => {
   API.getPosts().then(posts => dispatch({
@@ -48,20 +70,6 @@ export function updatePostInEdition( post ) {
   }
 }
 
-export function updateListWithPost( post ) {
-  return {
-    type: UPDATE_POST_IN_LIST,
-    post
-  }
-}
-
-export function deletePostFromList( id ) {
-  return {
-    type: DELETE_POST_FROM_LIST,
-    id
-  }
-}
-
 export function updateActiveCategory( name ) {
   return {
     type: UPDATE_ACTIVE_CATEGORY,
@@ -76,9 +84,11 @@ export const loadComments = postID => dispatch => {
     }))
 }
 
-export const updateVoteScore = (id, vote) => dispatch => {
-  API.updatePostVote(id, vote).then(updatedPost =>
-    dispatch(updateListWithPost( updatedPost ))
+export const updateVoteScore = (item, vote) => dispatch => {
+  const itemType = item.title ? "posts" : "comments";
+  const update = itemType === "posts" ? updateListWithPost : updateComment;
+  API.updateVote(item.id, itemType, vote ).then(updatedItem =>
+    dispatch(update( updatedItem ))
   );
 }
 
@@ -88,7 +98,6 @@ export const savePost = post => dispatch => {
     dispatch(updateListWithPost( p ))
     dispatch(updatePostInEdition({}, true));
     dispatch(toggleNewPostModal(true));
-
   })
 };
 

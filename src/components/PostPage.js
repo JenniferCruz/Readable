@@ -30,7 +30,7 @@ class PostPage extends Component {
           <div>{post.body}</div>
           <LoadPostFormButton isOpen={true} post={post} displayText="Edit"/>
           <DeleteButton id={post.id}/>
-          <Vote post={post}/>
+          <Vote item={post}/>
         </div>
         <Comments/>
       </div>);
