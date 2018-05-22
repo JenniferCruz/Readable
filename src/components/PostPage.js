@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import * as Actions from '../actions'
+import { getCurrentPostID } from '../utils/helpers'
 import Comments from './Comments'
 import DeleteButton from './DeleteButton'
 import LoadPostFormButton from './LoadPostFormButton'
@@ -8,16 +9,13 @@ import Vote from './Vote'
 import CommentForm from './CommentForm';
 
 class PostPage extends Component {
-  getPostID() {
-    return this.props.location.pathname.split("/").pop();
-  }
 
   componentDidMount() {
-    this.props.dispatch(Actions.loadComments(this.getPostID()));
+    this.props.dispatch(Actions.loadComments(getCurrentPostID()));
   }
 
   render() {
-    const id = this.getPostID();
+    const id = getCurrentPostID();
     const post = this.props.posts.find(p => id === p.id.toString());
     return !post ?
     (<div>Loading post</div>) : // TODO: Not found page if no post

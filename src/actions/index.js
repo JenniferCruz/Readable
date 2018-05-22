@@ -10,6 +10,7 @@ export const OPEN_EDIT_FORM_MODAL = "OPEN_EDIT_FORM_MODAL";
 export const UPDATE_POST_IN_EDITION = "UPDATE_POST_IN_EDITION";
 export const UPDATE_ACTIVE_CATEGORY = "UPDATE_ACTIVE_CATEGORY";
 export const UPDATE_COMMENT = "UPDATE_COMMENT";
+export const UPDATE_COMMENTS_COUNT = "UPDATE_COMMENTS_COUNT";
 export const UPDATE_POST_IN_LIST = "UPDATE_POST_IN_LIST";
 export const DELETE_POST_FROM_LIST = "DELETE_POST_FROM_LIST";
 export const DELETE_COMMENT_FROM_LIST = "DELETE_COMMENT_FROM_LIST";
@@ -22,6 +23,7 @@ function updateComment( comment ) {
     comment
   }
 }
+
 
 function updateListWithPost( post ) {
   return {
@@ -41,6 +43,14 @@ function deleteCommentFromList( id ) {
   return {
     type: DELETE_COMMENT_FROM_LIST,
     id
+  }
+}
+
+function updateCommentsCount( postID, change ) {
+  return {
+    type: UPDATE_COMMENTS_COUNT,
+    change,
+    postID
   }
 }
 
@@ -125,10 +135,24 @@ export const savePost = post => dispatch => {
   })
 };
 
+export const saveComment = comment => dispatch => {
+  API.saveComment( comment ).then( c => {
+    dispatch(toggleCommentForm( true ));
+    dispatch(updateComment( c ));
+    dispatch(updateCommentsCount( c.parentId, 1 ))
+  })
+}
+
 export const remove = item => dispatch => {
   const type = getItemType(item);
-  const dele = type === "posts" ? deletePostFromList : deleteCommentFromList;
-  return API.remove( item.id, type ).then(res => dispatch(dele( item.id )));
+  return API.remove( item.id, type ).then(res => {
+    if (type === "comments") {
+      dispatch(deleteCommentFromList( item.id ));
+      dispatch(updateCommentsCount( item.parentId, -1 ))
+    } else {
+      dispatch(deletePostFromList( item.id ));
+    }
+  });
 }
 
 function getItemType(item) {

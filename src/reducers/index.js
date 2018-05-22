@@ -13,11 +13,12 @@ import {
   DELETE_POST_FROM_LIST,
   DELETE_COMMENT_FROM_LIST,
   ORDER_POSTS_BY_SCORE,
-  ORDER_POSTS_BY_DATE
+  ORDER_POSTS_BY_DATE,
+  UPDATE_COMMENTS_COUNT
 } from '../actions'
 
 function getIndex(item, list) {
-  return list.findIndex(e => e.id === item.id);
+  return list.findIndex(e => e.id.toString() === item.id.toString());
 }
 
 function getUpdatedList(list, newElement) {
@@ -42,6 +43,11 @@ function posts(posts = [], action) {
   switch (action.type) {
     case UPDATE_POST_IN_LIST:
       return getUpdatedList(posts, action.post);
+    case UPDATE_COMMENTS_COUNT:
+      const i = getIndex({id: action.postID}, posts);
+      const p = Object.assign({}, posts[i]);
+      p.commentCount += action.change;
+      return getUpdatedList(posts, p);
     case DELETE_POST_FROM_LIST:
       return deleteFromList(posts, {id: action.id});
     case LOAD_POSTS:

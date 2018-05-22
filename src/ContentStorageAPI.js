@@ -57,7 +57,7 @@ export const getCategories = () =>
 export const savePost = ( post ) =>
   fetch(`${api}/posts`,
       headersPost({
-        id: Date.now(),
+        id: "P" + Date.now(),
         timestamp: Date.now(),
         title: post.title,
         body: post.body,
@@ -65,6 +65,19 @@ export const savePost = ( post ) =>
         category: post.category
       }))
     .then(res => res.json())
+
+export const saveComment = comment =>
+  fetch(`${api}/comments`,
+      headersPost({
+        id: "C" + Date.now(),
+        timestamp: Date.now(),
+        body: comment.body,
+        author: comment.author,
+        parentId: comment.parentId
+      }))
+    .then(res => res.json())
+
+
 
 export const updatePost = ( post ) =>
   fetch(`${api}/posts/${post.id}`,

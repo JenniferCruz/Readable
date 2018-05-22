@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import * as Actions from '../actions'
 import Vote from './Vote'
 import DeleteButton from './DeleteButton'
 
