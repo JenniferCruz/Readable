@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 import * as Actions from '../actions'
 
 class DeleteButton extends Component {
-  deletePost( id ) {
-    this.props.dispatch(Actions.deletePost( id ));
+  delete( item ) {
+    this.props.dispatch(Actions.remove( item ));
   }
 
   render() {
-    return (<em onClick={() => this.deletePost(this.props.id)}>Delete</em>);
+    return (<em onClick={() => this.delete(this.props.item)}>Delete</em>);
   }
 }
 

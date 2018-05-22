@@ -80,8 +80,8 @@ export const updateVote = ( itemID, itemType, vote ) =>
     .then(res => res.json())
 
 
-export const deletePost = id =>
-  fetch(`${api}/posts/${id}`, headersDelete())
+export const remove = ( itemID, itemType ) =>
+  fetch(`${api}/${itemType}/${itemID}`, headersDelete())
     .then(res => res.json())
 
 export const getComments = id =>

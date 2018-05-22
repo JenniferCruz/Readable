@@ -11,6 +11,7 @@ export const UPDATE_ACTIVE_CATEGORY = "UPDATE_ACTIVE_CATEGORY";
 export const UPDATE_COMMENT = "UPDATE_COMMENT";
 export const UPDATE_POST_IN_LIST = "UPDATE_POST_IN_LIST";
 export const DELETE_POST_FROM_LIST = "DELETE_POST_FROM_LIST";
+export const DELETE_COMMENT_FROM_LIST = "DELETE_COMMENT_FROM_LIST";
 
 function updateComment( comment ) {
   return {
@@ -29,6 +30,13 @@ function updateListWithPost( post ) {
 function deletePostFromList( id ) {
   return {
     type: DELETE_POST_FROM_LIST,
+    id
+  }
+}
+
+function deleteCommentFromList( id ) {
+  return {
+    type: DELETE_COMMENT_FROM_LIST,
     id
   }
 }
@@ -85,7 +93,7 @@ export const loadComments = postID => dispatch => {
 }
 
 export const updateVoteScore = (item, vote) => dispatch => {
-  const itemType = item.title ? "posts" : "comments";
+  const itemType = getItemType(item);
   const update = itemType === "posts" ? updateListWithPost : updateComment;
   API.updateVote(item.id, itemType, vote ).then(updatedItem =>
     dispatch(update( updatedItem ))
@@ -101,5 +109,12 @@ export const savePost = post => dispatch => {
   })
 };
 
-export const deletePost = id => dispatch =>
-  API.deletePost( id ).then(res => dispatch(deletePostFromList( id )));
+export const remove = item => dispatch => {
+  const type = getItemType(item);
+  const dele = type === "posts" ? deletePostFromList : deleteCommentFromList;
+  return API.remove( item.id, type ).then(res => dispatch(dele( item.id )));
+}
+
+function getItemType(item) {
+  return item.title ? "posts" : "comments";
+}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import * as Actions from '../actions'
 import Vote from './Vote'
+import DeleteButton from './DeleteButton'
 
 class Comments extends Component {
   render() {
@@ -16,6 +17,7 @@ class Comments extends Component {
             <p>{c.body}</p>
             <em>Date: {new Date(c.timestamp).toDateString()}</em>
             <Vote item={c}/>
+            <DeleteButton item={c}/>
           </div>
         </div>))
       }</div>)

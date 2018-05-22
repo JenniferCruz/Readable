@@ -12,7 +12,7 @@ export default function Post({ p, loadEditForm }) {
       <p>{`category: ${p.category}`}</p>
       <p>{`scores: ${p.voteScore}`}</p>
       <p>{`${p.commentCount} comments`}</p>
-      <p><LoadPostFormButton isOpen={true} post={p} displayText="Edit"/> | <DeleteButton id={p.id} /></p>
+      <p><LoadPostFormButton isOpen={true} post={p} displayText="Edit"/> | <DeleteButton item={p} /></p>
       <Vote item={p}/>
       <hr/>
     </div>

@@ -9,29 +9,38 @@ import {
   UPDATE_COMMENT,
   UPDATE_POST_IN_EDITION,
   UPDATE_POST_IN_LIST,
-  DELETE_POST_FROM_LIST
+  DELETE_POST_FROM_LIST,
+  DELETE_COMMENT_FROM_LIST
 } from '../actions'
 
-function getUpdtedList(list, newElement) {
+function getIndex(item, list) {
+  return list.findIndex(e => e.id === item.id);
+}
+
+function getUpdatedList(list, newElement) {
   list = list.slice(0);
-  const i = list.findIndex(e => e.id === newElement.id);
+  const i = getIndex(newElement, list);
   if (i < 0) // is a new element
     list.push(newElement);
   else
     list[i] = newElement;
   return list;
-
 }
+
+function deleteFromList(list, element) {
+  list = list.slice(0);
+  const i = getIndex(element, list);
+  list.splice(i, 1);
+  return list;
+}
+
 
 function posts(posts = [], action) {
   switch (action.type) {
     case UPDATE_POST_IN_LIST:
-      return getUpdtedList(posts, action.post);
+      return getUpdatedList(posts, action.post);
     case DELETE_POST_FROM_LIST:
-      posts = posts.slice(0);
-      const j = posts.findIndex(p => p.id === action.id);
-      posts.splice(j, 1);
-      return posts;
+      return deleteFromList(posts, {id: action.id});
     case LOAD_POSTS:
       return action.posts;
     default:
@@ -53,7 +62,9 @@ function comments(comments =[], action) {
     case LOAD_ACTIVE_POSTS_COMMENTS:
       return action.comments;
     case UPDATE_COMMENT:
-      return getUpdtedList(comments, action.comment);
+      return getUpdatedList(comments, action.comment);
+    case DELETE_COMMENT_FROM_LIST:
+      return deleteFromList(comments, {id: action.id});
     default:
       return comments;
   }
