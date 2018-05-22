@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import DeleteButton from './DeleteButton'
+import LoadPostFormButton from './LoadPostFormButton'
 
-export default function Post({ p, loadEditForm, deletePost }) {
+export default function Post({ p, loadEditForm }) {
   return (
     <div className="post">
       <h3><Link to={`${p.category}/${p.id}`}>{`${p.title}`}</Link></h3>
@@ -10,7 +11,7 @@ export default function Post({ p, loadEditForm, deletePost }) {
       <p>{`category: ${p.category}`}</p>
       <p>{`scores: ${p.voteScore}`}</p>
       <p>{`${p.commentCount} comments`}</p>
-      <p><em onClick={() => loadEditForm(true, p)}>Edit</em> | <DeleteButton id={p.id} /></p>
+      <p><LoadPostFormButton isOpen={true} post={p} displayText="Edit"/> | <DeleteButton id={p.id} /></p>
       <hr/>
     </div>
   );

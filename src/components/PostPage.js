@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import * as Actions from '../actions'
 import Comments from './Comments'
 import DeleteButton from './DeleteButton'
+import LoadPostFormButton from './LoadPostFormButton'
 
 class PostPage extends Component {
   getPostID() {
@@ -25,6 +26,7 @@ class PostPage extends Component {
           <p>{`scores: ${post.voteScore}`}</p>
           <p>{`${post.commentCount} comments`}</p>
           <div>{post.body}</div>
+          <LoadPostFormButton isOpen={true} post={post} displayText="Edit"/>
           <DeleteButton id={post.id}/>
         </div>
         <Comments/>

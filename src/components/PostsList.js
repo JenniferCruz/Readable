@@ -5,7 +5,6 @@ import PostSnippet from './PostSnippet'
 class PostsList extends Component {
 
   render() {
-    const { toggleModal, deletePost } = this.props;
     let posts = this.props.posts;
     const cname = this.props.match.params.cname;
     if (cname && cname !== "all")
@@ -17,7 +16,7 @@ class PostsList extends Component {
           <ul>{
               posts.map(p =>
                 (<li key={p.id}>{
-                  <PostSnippet p={p} loadEditForm={toggleModal} deletePost={deletePost}/>
+                  <PostSnippet p={p} />
                 }</li>)
               )
           }</ul>

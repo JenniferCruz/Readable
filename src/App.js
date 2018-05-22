@@ -24,10 +24,6 @@ class App extends Component {
       this.props.dispatch(Actions.toggleNewPostModal(currentStatus))
   }
 
-  deletePost( id ) {
-    this.props.dispatch(Actions.deletePost( id ));
-  }
-
   render() {
     Modal.setAppElement(document.getElementById('AppBody'));
 
@@ -39,15 +35,8 @@ class App extends Component {
       <div id="AppBody" className="App">
         <Header toggleModal={this.toggleModal.bind(this)}/>
         <Route path="/" component={Categories}/>
-        <Route exact path='/' render={routeProps =>
-          (<PostsList {...routeProps} toggleModal={this.toggleModal.bind(this)}
-                      deletePost={this.deletePost.bind(this)}/>)
-        }/>
-
-        <Route exact path='/:cname' render={routeProps =>
-          (<PostsList {...routeProps} toggleModal={this.toggleModal.bind(this)}
-                      deletePost={this.deletePost.bind(this)}/>)
-        }/>
+        <Route exact path='/' component={PostsList} />
+        <Route exact path='/:cname' component={PostsList} />
 
         <Route exact path='/:cname/:pid' component={PostPage}/>
 

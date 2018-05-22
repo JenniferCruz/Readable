@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 import FaPlusCircle from 'react-icons/lib/fa/plus-circle';
+import LoadPostFormButton from './LoadPostFormButton'
 
 class Header extends Component {
 
@@ -14,9 +15,8 @@ class Header extends Component {
           <h1><Link to="/">Readable</Link></h1>
           <p>Another React Application</p>
         </div>
-        <div className="add-button"
-            onClick={() => this.props.toggleModal(isOpenPostForm)}>
-            <FaPlusCircle/>
+        <div className="add-button">
+            <LoadPostFormButton isOpen={isOpenPostForm} displayText={<FaPlusCircle/>}/>
         </div>
       </header>
     );
