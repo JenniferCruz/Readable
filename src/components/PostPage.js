@@ -5,6 +5,7 @@ import Comments from './Comments'
 import DeleteButton from './DeleteButton'
 import LoadPostFormButton from './LoadPostFormButton'
 import Vote from './Vote'
+import CommentForm from './CommentForm';
 
 class PostPage extends Component {
   getPostID() {
@@ -32,6 +33,7 @@ class PostPage extends Component {
           <DeleteButton item={post}/>
           <Vote item={post}/>
         </div>
+        <CommentForm/>
         <Comments/>
       </div>);
   }

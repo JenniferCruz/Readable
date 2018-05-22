@@ -5,6 +5,7 @@ export const LOAD_CATEGORIES = "LOAD_CATEGORIES";
 export const LOAD_ACTIVE_POSTS_COMMENTS = "LOAD_ACTIVE_POSTS_COMMENTS";
 export const TOGGLE_NEW_POST_MODAL = "TOGGLE_POST_FORM_MODAL";
 export const TOGGLE_EDIT_POST_MODAL = "TOGGLE_EDIT_POST_MODAL";
+export const TOGGLE_COMMENT_FORM = "TOGGLE_COMMENT_FORM";
 export const OPEN_EDIT_FORM_MODAL = "OPEN_EDIT_FORM_MODAL";
 export const UPDATE_POST_IN_EDITION = "UPDATE_POST_IN_EDITION";
 export const UPDATE_ACTIVE_CATEGORY = "UPDATE_ACTIVE_CATEGORY";
@@ -62,6 +63,13 @@ export const loadCategories = () => dispatch => {
       categories: categories.categories
     })
   )}
+
+export function toggleCommentForm( isOpen ) {
+  return {
+    type: TOGGLE_COMMENT_FORM,
+    isOpen
+  }
+}
 
 export function toggleNewPostModal( isOpen ) {
   return {

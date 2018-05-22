@@ -5,6 +5,7 @@ import {
   LOAD_ACTIVE_POSTS_COMMENTS,
   TOGGLE_NEW_POST_MODAL,
   TOGGLE_EDIT_POST_MODAL,
+  TOGGLE_COMMENT_FORM,
   UPDATE_ACTIVE_CATEGORY,
   UPDATE_COMMENT,
   UPDATE_POST_IN_EDITION,
@@ -78,7 +79,10 @@ function comments(comments =[], action) {
   }
 }
 
-function activeOptions(modalsStatus = { isOpenPostForm: false, postInEdition: {}, selectedCategory: null }, action) {
+function activeOptions(tuningOptions = { isOpenPostForm: false,
+                                         isOpenCommentForm: false,
+                                         postInEdition: {},
+                                         selectedCategory: null }, action) {
   switch (action.type) {
     case TOGGLE_NEW_POST_MODAL:
       return {
@@ -92,6 +96,10 @@ function activeOptions(modalsStatus = { isOpenPostForm: false, postInEdition: {}
         postInEdition: action.isOpen ? action.post : {},
         isNewPost: false
       }
+    case TOGGLE_COMMENT_FORM:
+      return {
+        isOpenCommentForm: !action.isOpen
+      }
     case UPDATE_POST_IN_EDITION:
       return {
         postInEdition: action.post,
@@ -102,7 +110,7 @@ function activeOptions(modalsStatus = { isOpenPostForm: false, postInEdition: {}
         // TODO
       }
     default:
-      return modalsStatus;
+      return tuningOptions;
   }
 }
 
