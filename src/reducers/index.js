@@ -30,7 +30,7 @@ function posts(posts = [], action) {
     case DELETE_POST_FROM_LIST:
       posts = posts.slice(0);
       const j = posts.findIndex(p => p.id === action.id);
-      posts.splice(j, j+1);
+      posts.splice(j, 1);
       return posts;
     case LOAD_POSTS:
       return action.posts;
