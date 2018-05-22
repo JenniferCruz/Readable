@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import * as API from '../ContentStorageAPI'
 import * as Actions from '../actions'
 
 class Comments extends Component {

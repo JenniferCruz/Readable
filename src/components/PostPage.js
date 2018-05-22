@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import * as API from '../ContentStorageAPI'
 import * as Actions from '../actions'
 import Comments from './Comments'
+import DeleteButton from './DeleteButton'
 
 class PostPage extends Component {
   getPostID() {
@@ -25,6 +25,7 @@ class PostPage extends Component {
           <p>{`scores: ${post.voteScore}`}</p>
           <p>{`${post.commentCount} comments`}</p>
           <div>{post.body}</div>
+          <DeleteButton id={post.id}/>
         </div>
         <Comments/>
       </div>);

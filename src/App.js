@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { BrowserRouter, Link, Route } from 'react-router-dom'
-import logo from './logo.svg'
+import { BrowserRouter, Route } from 'react-router-dom'
 import './App.css';
 import PostForm from './components/PostForm'
 import Header from './components/Header'
@@ -9,7 +8,6 @@ import Categories from './components/Categories'
 import PostsList from './components/PostsList'
 import PostPage from './components/PostPage'
 import Modal from 'react-modal'
-import * as API from './ContentStorageAPI'
 import * as Actions from './actions'
 
 class App extends Component {
@@ -33,7 +31,7 @@ class App extends Component {
   render() {
     Modal.setAppElement(document.getElementById('AppBody'));
 
-    const { posts, categories, activeOptions } = this.props;
+    const activeOptions = this.props.activeOptions;
     const { isOpenPostForm } = activeOptions;
 
     return (
@@ -69,8 +67,8 @@ class App extends Component {
   }
 }
 
-function mapStateToProps ({ posts, categories, activeOptions }) {
-  return { posts, categories, activeOptions }
+function mapStateToProps ({ activeOptions }) {
+  return { activeOptions }
 }
 
 export default connect(mapStateToProps)(App);

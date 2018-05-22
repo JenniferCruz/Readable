@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+import DeleteButton from './DeleteButton'
 
 export default function Post({ p, loadEditForm, deletePost }) {
   return (
@@ -9,7 +10,7 @@ export default function Post({ p, loadEditForm, deletePost }) {
       <p>{`category: ${p.category}`}</p>
       <p>{`scores: ${p.voteScore}`}</p>
       <p>{`${p.commentCount} comments`}</p>
-      <p><em onClick={() => loadEditForm(true, p)}>Edit</em> | <em onClick={() => deletePost(p.id)}>Delete</em></p>
+      <p><em onClick={() => loadEditForm(true, p)}>Edit</em> | <DeleteButton id={p.id} /></p>
       <hr/>
     </div>
   );

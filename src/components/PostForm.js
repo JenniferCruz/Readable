@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import serializeForm from 'form-serialize'
-import * as API from '../ContentStorageAPI'
 import * as Actions from '../actions'
 
 class PostForm extends Component {
