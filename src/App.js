@@ -7,6 +7,7 @@ import PostForm from './components/PostForm'
 import Header from './components/Header'
 import Categories from './components/Categories'
 import PostsList from './components/PostsList'
+import PostPage from './components/PostPage'
 import Modal from 'react-modal'
 import * as API from './ContentStorageAPI'
 import * as Actions from './actions'
@@ -49,6 +50,9 @@ class App extends Component {
           (<PostsList {...routeProps} toggleModal={this.toggleModal.bind(this)}
                       deletePost={this.deletePost.bind(this)}/>)
         }/>
+
+        <Route exact path='/:cname/:pid' component={PostPage}/>
+
 
         <Modal
           className='modal'
