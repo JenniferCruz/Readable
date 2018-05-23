@@ -16,7 +16,6 @@ export default function Post({ p, loadEditForm }) {
         <h3><Link to={`${p.category}/${p.id}`}>{`${p.title}`}</Link></h3>
         <p>{`by ${p.author} on ${getDate(p.timestamp)}`}</p>
         <p>{`category: ${p.category}`}</p>
-        <p>{`scores: ${p.voteScore}`}</p>
         <p>{`${p.commentCount} comments`}</p>
 
         <div className="post-controls">
