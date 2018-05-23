@@ -7,6 +7,7 @@ import DeleteButton from './DeleteButton'
 import LoadPostFormButton from './LoadPostFormButton'
 import Vote from './Vote'
 import CommentForm from './CommentForm';
+import ErrorPage from './ErrorPage';
 
 class PostPage extends Component {
 
@@ -18,7 +19,9 @@ class PostPage extends Component {
     const id = getCurrentPostID();
     const post = this.props.posts.find(p => id === p.id.toString());
     return !post ?
-    (<div className="post-page">Loading post</div>) : // TODO: Not found page if no post
+    (<div className="post-page">
+      <ErrorPage/>
+    </div>) : // TODO: Not found page if no post
     (<div className="post-page">
         <div>
           <div className="section-header">

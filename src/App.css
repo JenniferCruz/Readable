@@ -170,3 +170,21 @@ input[type=text], textarea, select {
   border-radius: 4px;
   box-sizing: border-box;
 }
+
+.error-page {
+  text-align: center;
+  background-color: #00ced1;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 16px;
+}
+
+.error-page h2 {
+  color: #fff;
+}
+
+.error-page-link {
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer; 
+}
