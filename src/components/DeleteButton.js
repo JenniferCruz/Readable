@@ -10,7 +10,7 @@ class DeleteButton extends Component {
 
   render() {
     const cssClass = this.props.cssClass ? this.props.cssClass + " pointer" : "pointer";
-    return (<div className={cssClass}
+    return (<div className={cssClass} title="delete"
               onClick={() => this.delete(this.props.item)}>
                <FaTrash />
             </div>);

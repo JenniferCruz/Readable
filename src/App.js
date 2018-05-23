@@ -48,8 +48,7 @@ class App extends Component {
             contentLabel='Modal'
             shouldCloseOnOverlayClick={false}
           >
-            <h2 onClick={() => this.toggleModal(isOpenPostForm, false)}>X</h2>
-            <PostForm/>
+            <PostForm toggleModal={this.toggleModal.bind(this)}/>
           </Modal>
         </div>
       </div>

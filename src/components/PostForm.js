@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import serializeForm from 'form-serialize'
+import FaClose from 'react-icons/lib/fa/close';
 import * as Actions from '../actions'
 
 class PostForm extends Component {
@@ -20,8 +21,13 @@ class PostForm extends Component {
   render() {
     const post = this.props.activeOptions.postInEdition || {};
     const isNewPost = post.id === undefined;
+    const isOpenPostForm = this.props.activeOptions.isOpenPostForm;
 
     return (<div className="post-form">
+      <h2 onClick={() => this.props.toggleModal(isOpenPostForm, false)}>
+        <FaClose className="pointer"/>
+      </h2>
+
       <form onSubmit={ e => this.savePost(e, post) }>
 
         Title: <input type="text" name="title" value={ post.title }

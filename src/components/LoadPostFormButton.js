@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import FaPencil from 'react-icons/lib/fa/pencil';
+import FaPlusCircle from 'react-icons/lib/fa/plus-circle';
 import * as Actions from '../actions'
 
 class LoadPostFormButton extends Component {
@@ -12,10 +14,19 @@ class LoadPostFormButton extends Component {
   }
 
   render() {
-    const { post, isOpen, displayText } = this.props;
-    const cssClass = this.props.cssClass ? this.props.cssClass + " pointer" : "pointer"; 
+    const { post, isOpen } = this.props;
 
-    return (<div className={cssClass} title="add a new post" onClick={() =>
+    let cssClass = "add-post-icon pointer",
+          iconTitle = "add new post",
+          displayText = <FaPlusCircle/>;
+
+    if (post && post.id !== undefined) {
+      cssClass = "post-control-icon pointer";
+      iconTitle = "edit post";
+      displayText = <FaPencil/>;
+    }
+
+    return (<div className={cssClass} title={iconTitle} onClick={() =>
               this.toggleModal(isOpen, post)}>
                 {displayText}
             </div> );

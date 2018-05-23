@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
-import FaPlusCircle from 'react-icons/lib/fa/plus-circle';
 import LoadPostFormButton from './LoadPostFormButton'
 
 class Header extends Component {
@@ -16,10 +15,7 @@ class Header extends Component {
           <p>Another React Application</p>
         </div>
         <div>
-            <LoadPostFormButton
-              isOpen={isOpenPostForm}
-              displayText={<FaPlusCircle/>}
-              cssClass="add-post-icon"/>
+            <LoadPostFormButton isOpen={isOpenPostForm} />
         </div>
       </header>
     );

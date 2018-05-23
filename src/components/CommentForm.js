@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import serializeForm from 'form-serialize'
 import { getCurrentPostID } from '../utils/helpers'
 import FaPlusCircle from 'react-icons/lib/fa/plus-circle';
+import FaClose from 'react-icons/lib/fa/close';
 import * as Actions from '../actions'
 
 class CommentForm extends Component {
@@ -40,7 +41,11 @@ class CommentForm extends Component {
     ) :
     (<div>
         <hr/>
-        <em onClick={e => this.toggleForm(e, !isClose)}>X</em>
+        <h3>Add a new comment</h3>
+        <div title="close" className="close-icon" 
+          onClick={e => this.toggleForm(e, !isClose)}>
+            <FaClose className="pointer"/>
+        </div>
 
         <form onSubmit={ e => this.saveComment(e, c) }>
 

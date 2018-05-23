@@ -56,7 +56,7 @@ ul {
   background-color: lightgray;
 }
 
-.posts {
+.posts, .post-page {
   order: 2;
   flex: 1 auto;
 }
@@ -77,21 +77,88 @@ ul {
   padding-bottom: 20px;
 }
 
-.score {
+.post-snippet-details h3 {
+  margin-top: 0;
+}
+
+.post-snippet-score {
   margin-right: 40px;
+}
+
+.score {
   text-align: center;
   font-size: 2.5em;
 }
 
-.post-snippet-controls {
+.post-controls, .comment {
   display: flex;
   justify-content: flex-end;
 }
 
-.snippet-control-icon {
+.control-icon {
   padding-left: 8px;
 }
 
 .pointer:hover {
   cursor: pointer;
+}
+
+.post-page-aside {
+  display: flex;
+  flex-flow: row wrap;
+  flex: 1 100%;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  padding-top: 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.post-page-info, .comment-content {
+  order: 1;
+  flex: 1 auto;
+}
+
+.post-page-info p {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.post-page-score, .comment-vote {
+  order: 2;
+  flex: 1 auto;
+}
+
+.post-page .section-content {
+  margin-bottom: 100px;
+}
+
+.comment-options {
+  display: flex;
+}
+
+.comment-vote {
+  padding-top: 40px;
+}
+
+.comment {
+  background: #C0C0C0;
+  padding: 10px 20px 30px;
+  margin-bottom: 10px;
+  border-radius: 0 15px;
+}
+
+.close-icon {
+  text-align: right;
+}
+
+/* https://www.w3schools.com/css/css_form.asp */
+input[type=text], textarea, select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }

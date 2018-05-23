@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import FaPencil from 'react-icons/lib/fa/pencil';
 import Vote from './Vote'
 import DeleteButton from './DeleteButton'
 import * as Actions from '../actions'
+import { getDate } from '../utils/helpers'
 
 class Comments extends Component {
   edit(e, comment) {
@@ -17,13 +19,20 @@ class Comments extends Component {
       (<div>Loading comments!</div>) :
       (<div id="comments">{
         comments.map(c => (<div className="comment" key={c.id}>
-          <div>
+          <div className="comment-content">
             <h4>{c.author} says:</h4>
             <p>{c.body}</p>
-            <em>Date: {new Date(c.timestamp).toDateString()}</em>
+            <p>Date: {getDate(c.timestamp)}</p>
+
+            <div className="comment-options">
+              <DeleteButton item={c}/>
+              <div title="edit" className="control-icon" onClick={e => this.edit(e, c)}>
+                <FaPencil/>
+              </div>
+            </div>
+          </div>
+          <div className="comment-vote">
             <Vote item={c}/>
-            <DeleteButton item={c}/>
-            <em onClick={e => this.edit(e, c)}>Edit</em>
           </div>
         </div>))
       }</div>)
