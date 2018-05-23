@@ -6,9 +6,11 @@ import {
   TOGGLE_NEW_POST_MODAL,
   TOGGLE_EDIT_POST_MODAL,
   TOGGLE_COMMENT_FORM,
+  OPEN_EDIT_COMMENT_FORM,
   UPDATE_ACTIVE_CATEGORY,
   UPDATE_COMMENT,
   UPDATE_POST_IN_EDITION,
+  UPDATE_COMMENT_IN_EDITION,
   UPDATE_POST_IN_LIST,
   DELETE_POST_FROM_LIST,
   DELETE_COMMENT_FROM_LIST,
@@ -88,7 +90,9 @@ function comments(comments =[], action) {
 function activeOptions(tuningOptions = { isOpenPostForm: false,
                                          isOpenCommentForm: false,
                                          postInEdition: {},
+                                         commentInEdition: {},
                                          selectedCategory: null }, action) {
+
   switch (action.type) {
     case TOGGLE_NEW_POST_MODAL:
       return {
@@ -105,6 +109,16 @@ function activeOptions(tuningOptions = { isOpenPostForm: false,
     case TOGGLE_COMMENT_FORM:
       return {
         isOpenCommentForm: !action.isOpen
+      }
+    case OPEN_EDIT_COMMENT_FORM:
+      return {
+        isOpenCommentForm: true,
+        commentInEdition: action.comment
+      }
+    case UPDATE_COMMENT_IN_EDITION:
+      return {
+        isOpenCommentForm: true,
+        commentInEdition: action.comment
       }
     case UPDATE_POST_IN_EDITION:
       return {

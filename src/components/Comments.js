@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import Vote from './Vote'
 import DeleteButton from './DeleteButton'
+import * as Actions from '../actions'
 
 class Comments extends Component {
+  edit(e, comment) {
+    e.preventDefault();
+    this.props.dispatch(Actions.editComment( comment ));
+  }
+
   render() {
     const comments = this.props.comments;
 
@@ -17,6 +23,7 @@ class Comments extends Component {
             <em>Date: {new Date(c.timestamp).toDateString()}</em>
             <Vote item={c}/>
             <DeleteButton item={c}/>
+            <em onClick={e => this.edit(e, c)}>Edit</em>
           </div>
         </div>))
       }</div>)

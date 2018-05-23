@@ -7,7 +7,9 @@ export const TOGGLE_NEW_POST_MODAL = "TOGGLE_POST_FORM_MODAL";
 export const TOGGLE_EDIT_POST_MODAL = "TOGGLE_EDIT_POST_MODAL";
 export const TOGGLE_COMMENT_FORM = "TOGGLE_COMMENT_FORM";
 export const OPEN_EDIT_FORM_MODAL = "OPEN_EDIT_FORM_MODAL";
+export const OPEN_EDIT_COMMENT_FORM = "OPEN_EDIT_COMMENT_FORM";
 export const UPDATE_POST_IN_EDITION = "UPDATE_POST_IN_EDITION";
+export const UPDATE_COMMENT_IN_EDITION = "UPDATE_COMMENT_IN_EDITION";
 export const UPDATE_ACTIVE_CATEGORY = "UPDATE_ACTIVE_CATEGORY";
 export const UPDATE_COMMENT = "UPDATE_COMMENT";
 export const UPDATE_COMMENTS_COUNT = "UPDATE_COMMENTS_COUNT";
@@ -51,6 +53,13 @@ function updateCommentsCount( postID, change ) {
     type: UPDATE_COMMENTS_COUNT,
     change,
     postID
+  }
+}
+
+export function editComment( comment ) {
+  return {
+    type: OPEN_EDIT_COMMENT_FORM,
+    comment
   }
 }
 
@@ -104,6 +113,13 @@ export function updatePostInEdition( post ) {
   }
 }
 
+export function updateCommentInEdition( comment ) {
+  return {
+    type: UPDATE_COMMENT_IN_EDITION,
+    comment
+  }
+}
+
 export function updateActiveCategory( name ) {
   return {
     type: UPDATE_ACTIVE_CATEGORY,
@@ -136,7 +152,8 @@ export const savePost = post => dispatch => {
 };
 
 export const saveComment = comment => dispatch => {
-  API.saveComment( comment ).then( c => {
+  const save = comment.id === undefined ? API.saveComment : API.updateComment;
+  save( comment ).then( c => {
     dispatch(toggleCommentForm( true ));
     dispatch(updateComment( c ));
     dispatch(updateCommentsCount( c.parentId, 1 ))

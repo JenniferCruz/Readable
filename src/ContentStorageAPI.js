@@ -77,13 +77,17 @@ export const saveComment = comment =>
       }))
     .then(res => res.json())
 
-
+export const updateComment = comment =>
+  fetch(`${api}/comments/${comment.id}`, headersPut({
+    timestamp: Date.now(),
+    body: comment.body
+  })).then(res => res.json())
 
 export const updatePost = ( post ) =>
   fetch(`${api}/posts/${post.id}`,
     headersPut({
       title: post.title,
-      body: post.body,
+      body: post.body
     }))
     .then(res => res.json())
 
