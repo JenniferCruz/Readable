@@ -17,25 +17,27 @@ class Comments extends Component {
 
     return !comments ?
       (<div>Loading comments!</div>) :
-      (<div id="comments">{
-        comments.map(c => (<div className="comment" key={c.id}>
-          <div className="comment-content">
-            <h4>{c.author} says:</h4>
-            <p>{c.body}</p>
-            <p>Date: {getDate(c.timestamp)}</p>
+      (<div id="comments">
+        <h3>Comments</h3>
+        {
+          comments.map(c => (<div className="comment" key={c.id}>
+            <div className="comment-content">
+              <h4>{c.author} says:</h4>
+              <p>{c.body}</p>
+              <p>Date: {getDate(c.timestamp)}</p>
 
-            <div className="comment-options">
-              <DeleteButton item={c}/>
-              <div title="edit" className="control-icon" onClick={e => this.edit(e, c)}>
-                <FaPencil/>
+              <div className="comment-options">
+                <DeleteButton item={c}/>
+                <div title="edit" className="control-icon" onClick={e => this.edit(e, c)}>
+                  <FaPencil/>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="comment-vote">
-            <Vote item={c}/>
-          </div>
-        </div>))
-      }</div>)
+            <div className="comment-vote">
+              <Vote item={c}/>
+            </div>
+          </div>))
+        }</div>)
   }
 };
 

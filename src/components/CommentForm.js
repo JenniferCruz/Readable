@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import serializeForm from 'form-serialize'
 import { getCurrentPostID } from '../utils/helpers'
-import FaPlusCircle from 'react-icons/lib/fa/plus-circle';
+import FaCaretRight from 'react-icons/lib/fa/caret-right';
 import FaClose from 'react-icons/lib/fa/close';
 import * as Actions from '../actions'
 
@@ -35,14 +35,17 @@ class CommentForm extends Component {
     return isClose ? (
       <div>
         <hr/>
-        Add new comment <em onClick={e => this.toggleForm(e, !isClose)}><FaPlusCircle/></em>
+        Leave a reply
+        <em className="add-comment-icon" onClick={e => this.toggleForm(e, !isClose)}>
+          <FaCaretRight className="pointer"/>
+        </em>
         <hr/>
       </div>
     ) :
     (<div>
         <hr/>
-        <h3>Add a new comment</h3>
-        <div title="close" className="close-icon" 
+        <h4 className="comments-form-title">{isNew ? "Add a new comment" : "Edit comment"}</h4>
+        <div title="close" className="close-icon"
           onClick={e => this.toggleForm(e, !isClose)}>
             <FaClose className="pointer"/>
         </div>

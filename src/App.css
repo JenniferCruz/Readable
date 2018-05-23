@@ -148,6 +148,14 @@ ul {
   border-radius: 0 15px;
 }
 
+h4.comments-form-title {
+  margin-bottom: 0;
+}
+
+.add-comment-icon {
+  size: 2em;
+}
+
 .close-icon {
   text-align: right;
 }
