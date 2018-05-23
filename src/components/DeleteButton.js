@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import FaTrash from 'react-icons/lib/fa/trash';
 import * as Actions from '../actions'
 
 class DeleteButton extends Component {
@@ -8,7 +9,11 @@ class DeleteButton extends Component {
   }
 
   render() {
-    return (<em onClick={() => this.delete(this.props.item)}>Delete</em>);
+    const cssClass = this.props.cssClass ? this.props.cssClass + " pointer" : "pointer";
+    return (<div className={cssClass}
+              onClick={() => this.delete(this.props.item)}>
+               <FaTrash />
+            </div>);
   }
 }
 

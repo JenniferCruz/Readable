@@ -12,9 +12,13 @@ class LoadPostFormButton extends Component {
   }
 
   render() {
-    return (<em onClick={() => this.toggleModal(this.props.isOpen, this.props.post)}>
-                {this.props.displayText}
-            </em> );
+    const { post, isOpen, displayText } = this.props;
+    const cssClass = this.props.cssClass ? this.props.cssClass + " pointer" : "pointer"; 
+
+    return (<div className={cssClass} title="add a new post" onClick={() =>
+              this.toggleModal(isOpen, post)}>
+                {displayText}
+            </div> );
   }
 }
 

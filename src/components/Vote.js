@@ -13,7 +13,7 @@ class Vote extends Component {
   render() {
     const item = this.props.item;
 
-    return (<div>
+    return (<div className="score">
         <div>{item.voteScore}</div>
         <div>
           <a href="" title="vote up"

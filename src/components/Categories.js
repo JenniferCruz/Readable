@@ -8,17 +8,22 @@ class Categories extends Component {
     const categories = this.props.categories;
 
     return (
-      <div>
-        <ul>
-          <li><NavLink to="/" activeClassName="selected-category" exact>all</NavLink></li>
-          {
-            categories.map(c =>
-              (<li key={c.name}>
-                <NavLink to={`/${c.path}`} activeClassName="selected-category">
-                  {c.name}
-                </NavLink>
-              </li>)
-          )}</ul>
+      <div className="categories">
+        <div className="section-header">
+          <h2>Categories</h2>
+        </div>
+        <div className="section-content">
+          <ul className="category-list">
+            <li><NavLink to="/" activeClassName="selected-category" exact>all</NavLink></li>
+            {
+              categories.map(c =>
+                (<li key={c.name}>
+                  <NavLink to={`/${c.path}`} activeClassName="selected-category">
+                    {c.name}
+                  </NavLink>
+                </li>)
+            )}</ul>
+        </div>
       </div>
     )
   }

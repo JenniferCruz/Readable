@@ -34,22 +34,24 @@ class App extends Component {
     <BrowserRouter>
       <div id="AppBody" className="App">
         <Header toggleModal={this.toggleModal.bind(this)}/>
-        <Route path="/" component={Categories}/>
-        <Route exact path='/' component={PostsList} />
-        <Route exact path='/:cname' component={PostsList} />
+        <div className="body-content">
+          <Route path="/" component={Categories}/>
+          <Route exact path='/' component={PostsList} />
+          <Route exact path='/:cname' component={PostsList} />
 
-        <Route exact path='/:cname/:pid' component={PostPage}/>
+          <Route exact path='/:cname/:pid' component={PostPage}/>
 
 
-        <Modal
-          className='modal'
-          isOpen={isOpenPostForm}
-          contentLabel='Modal'
-          shouldCloseOnOverlayClick={false}
-        >
-          <h2 onClick={() => this.toggleModal(isOpenPostForm, false)}>X</h2>
-          <PostForm/>
-        </Modal>
+          <Modal
+            className='modal'
+            isOpen={isOpenPostForm}
+            contentLabel='Modal'
+            shouldCloseOnOverlayClick={false}
+          >
+            <h2 onClick={() => this.toggleModal(isOpenPostForm, false)}>X</h2>
+            <PostForm/>
+          </Modal>
+        </div>
       </div>
     </BrowserRouter>
     );

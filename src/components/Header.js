@@ -15,8 +15,11 @@ class Header extends Component {
           <h1><Link to="/">Readable</Link></h1>
           <p>Another React Application</p>
         </div>
-        <div className="add-button">
-            <LoadPostFormButton isOpen={isOpenPostForm} displayText={<FaPlusCircle/>}/>
+        <div>
+            <LoadPostFormButton
+              isOpen={isOpenPostForm}
+              displayText={<FaPlusCircle/>}
+              cssClass="add-post-icon"/>
         </div>
       </header>
     );
